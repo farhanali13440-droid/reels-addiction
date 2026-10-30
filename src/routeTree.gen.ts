@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as AdminLeads1340RouteImport } from './routes/admin.leads1340'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLeads1340Route = AdminLeads1340RouteImport.update({
+  id: '/admin/leads1340',
+  path: '/admin/leads1340',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/checkout': typeof CheckoutRoute
+  '/thank-you': typeof ThankYouRoute
+  '/admin/leads1340': typeof AdminLeads1340Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/checkout': typeof CheckoutRoute
+  '/thank-you': typeof ThankYouRoute
+  '/admin/leads1340': typeof AdminLeads1340Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/checkout': typeof CheckoutRoute
+  '/thank-you': typeof ThankYouRoute
+  '/admin/leads1340': typeof AdminLeads1340Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/checkout' | '/thank-you' | '/admin/leads1340'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/checkout' | '/thank-you' | '/admin/leads1340'
+  id: '__root__' | '/' | '/checkout' | '/thank-you' | '/admin/leads1340'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CheckoutRoute: typeof CheckoutRoute
+  ThankYouRoute: typeof ThankYouRoute
+  AdminLeads1340Route: typeof AdminLeads1340Route
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/leads1340': {
+      id: '/admin/leads1340'
+      path: '/admin/leads1340'
+      fullPath: '/admin/leads1340'
+      preLoaderRoute: typeof AdminLeads1340RouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CheckoutRoute: CheckoutRoute,
+  ThankYouRoute: ThankYouRoute,
+  AdminLeads1340Route: AdminLeads1340Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
